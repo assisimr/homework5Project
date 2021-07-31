@@ -18,7 +18,7 @@ mysql.init_app(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'Sheethal'}
+    user = {'username': 'simian'}
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM tblZillowImport')
     result = cursor.fetchall()
@@ -44,7 +44,8 @@ def form_edit_get(house_id):
 @app.route('/edit/<int:house_id>', methods=['POST'])
 def form_update_post(house_id):
     cursor = mysql.get_db().cursor()
-    inputData = (request.form.get('fldName'), request.form.get('fldLiveSpace'), request.form.get('fldBeds'), request.form.get('fldBaths'),
+    inputData = (request.form.get('fldName'), request.form.get('fldLiveSpace'), request.form.get('fldBeds'),
+                 request.form.get('fldBaths'),
                  request.form.get('fldZip'), request.form.get('fldYear'),
                  request.form.get('fldPrice'), house_id)
     sql_update_query = """UPDATE tblZillowImport t SET t.fldName = %s, t.fldLiveSpace = %s, t.fldBeds = %s, t.fldBaths = %s, t.fldZip = 
@@ -52,6 +53,7 @@ def form_update_post(house_id):
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
+
 
 @app.route('/houses/new', methods=['GET'])
 def form_insert_get():
@@ -61,13 +63,15 @@ def form_insert_get():
 @app.route('/houses/new', methods=['POST'])
 def form_insert_post():
     cursor = mysql.get_db().cursor()
-    inputData = (request.form.get('fldName'), request.form.get('fldLiveSpace'), request.form.get('fldBeds'), request.form.get('fldBaths'),
+    inputData = (request.form.get('fldName'), request.form.get('fldLiveSpace'), request.form.get('fldBeds'),
+                 request.form.get('fldBaths'),
                  request.form.get('fldZip'), request.form.get('fldYear'),
                  request.form.get('fldPrice'))
     sql_insert_query = """INSERT INTO tblZillowImport (fldName,fldLiveSpace,fldBeds,fldBaths,fldZip,fldYear,fldPrice) VALUES (%s, %s,%s, %s,%s, %s,%s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
+
 
 @app.route('/delete/<int:house_id>', methods=['POST'])
 def form_delete_post(house_id):
