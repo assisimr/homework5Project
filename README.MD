@@ -1,6 +1,6 @@
 ## PythonFlaskDockerProject
 
-## This project is a homework assignment is to get Pycharm setup with Docker, Flask, MySQL, and Postman.
+## This project is a homework assignment is to get Pycharm setup with Docker, Flask, MySQL.
 
 ## Screenshots added:
 
